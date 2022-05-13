@@ -1,0 +1,51 @@
+<div class="alert alert-primary text-center">
+    <strong>Welcome Faculty : {{user.username}}</strong>
+</div>
+
+<div class="container">
+    <div class="row row-cols-2">
+
+        <div class="col">
+            <div class="border border-dark rounded w-90 box">
+                <div class="h-100 d-flex align-items-center justify-content-center">
+                    <a role="button"class="btn btn-primary btn-lg" routerLink="/view-students">
+                      <i class="bi bi-list-ol"></i>  
+                      view all students
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="border border-dark rounded w-100 box">
+                <div class="h-100 d-flex align-items-center justify-content-center">
+                    <form *ngIf="configs" [formGroup]="subjectForm" (ngSubmit)="onSubmit()">
+                        <div class="form-group row mt-2">
+                            <div class="col">
+                                <select formControlName="subject" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['subject'].errors }">
+                                    <option value="">Select a subject</option>
+                                    <option *ngFor="let r of configs.subjects | keyvalue" [ngValue]="r.value">
+                                        {{ r.key }}
+                                    </option>
+                                </select>
+                                <div *ngIf="submitted && f['subject'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['subject'].errors['required']">Subject is required.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button [disabled]="loading" class="btn btn-primary" type="submit">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                <i class="bi bi-calendar4"></i>
+                                Mark Attendance By Card
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

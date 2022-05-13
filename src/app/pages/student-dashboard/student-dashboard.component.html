@@ -1,0 +1,55 @@
+
+<div class="container-fluid">
+    <div class="alert alert-info text-center">
+        <h3>
+            <strong>Student Details</strong>
+        </h3>
+    </div>
+
+    <div *ngIf="student" class="card">
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" *ngFor="let sf of studentFields">{{ sf | uppercase}}</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td *ngFor="let fieldName of studentFields">{{student[fieldName]}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="alert alert-info text-center">
+        <h3>
+            <strong>Student Transactions History</strong>
+        </h3>
+
+        <div *ngIf="transactions" class="card">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" *ngFor="let tf of transactionFields">{{ tf | uppercase}}</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let t of transactions; let i = index;">
+                        <th scope="row">{{i+1}}</th>
+                        <td *ngFor="let fieldName of transactionFields">{{t[fieldName]}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>    

@@ -1,0 +1,53 @@
+<div class="col-md-6 offset-md-3 mt-5">
+    <div class="alert alert-info text-center">
+        <strong>Pay From Student Account</strong>
+        <p *ngIf="paymentMessage">{{paymentMessage}}</p>
+    </div>
+
+
+    <div class="card">
+        <h4 class="card-header text-center">Pay from</h4>
+
+        <div class="card-body">
+            <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+
+
+                <div class="form-group mt-2 row">
+                    <!-- card id here -->
+                    <div class="col-md-6">
+                        <label for="cardId"><i class="bi bi-credit-card-2-back"></i> Card ID</label>
+                        <input type="text" formControlName="cardId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['cardId'].errors }" />
+                        <div *ngIf="submitted && f['cardId'].errors" class="invalid-feedback">
+                            <div *ngIf="f['cardId'].errors['required']">Card ID is required.</div>
+                            <div *ngIf="f['cardId'].errors['min']">Card ID should have atleast 3 digits.</div>
+                        </div>
+                    </div>
+
+                    <!-- roll no here -->
+                    <div class="col-md-6">
+                        <label for="amount"> Amount</label>
+                        <input type="number" formControlName="amount" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['amount'].errors }" />
+                        <div *ngIf="submitted && f['amount'].errors" class="invalid-feedback">
+                            <div *ngIf="f['amount'].errors['required']">Amount is required.</div>
+                            <div *ngIf="f['amount'].errors['min']">Amount should be greater than 0.</div>
+                            <div *ngIf="f['amount'].errors['max']">Amount should be less than 1000.</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <button [disabled]="loading" class="btn btn-primary" type="submit">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        <i class="bi bi-wallet2"></i>
+                        Pay
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</div>

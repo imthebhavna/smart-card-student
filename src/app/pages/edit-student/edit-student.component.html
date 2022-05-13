@@ -1,0 +1,164 @@
+<div class="col-md-6 offset-md-3 mt-5">
+    <div class="alert alert-info text-center">
+        <strong>Edit Student</strong>
+    </div>
+
+    <div class="card">
+        <h4 class="card-header text-center">Update with</h4>
+
+        <div class="card-body">
+            <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+
+                <div class="form-group row mt-2">
+                    <!-- first name here -->
+                    <div class="col">
+                        <label for="firstName">Firstname</label>
+                        <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }" />
+                        <div *ngIf="submitted && f['firstName'].errors" class="invalid-feedback">
+                            <div *ngIf="f['firstName'].errors['required']">Firstname is required.</div>
+                            <div *ngIf="f['firstName'].errors['minlength']">Firstname should have atleast 3 letters.</div>
+                            <div *ngIf="f['firstName'].errors['pattern']">Firstname should have alphabets only.</div>
+                        </div>
+                    </div>
+
+                    <!-- middle name here -->
+                    <div class="col">
+                        <label for="middleName">Middlename</label>
+                        <input type="text" formControlName="middleName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['middleName'].errors }" />
+                        <div *ngIf="submitted && f['middleName'].errors" class="invalid-feedback">
+                            <div *ngIf="f['middleName'].errors['minlength']">Middlename should have atleast 3 letters.</div>
+                        </div>
+                    </div>
+
+                    <!-- last name here -->
+                    <div class="col">
+                        <label for="lastName">Lastname</label>
+                        <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }" />
+                        <div *ngIf="submitted && f['lastName'].errors" class="invalid-feedback">
+                            <div *ngIf="f['lastName'].errors['required']">Lastname is required.</div>
+                            <div *ngIf="f['lastName'].errors['minlength']">Lastname should have atleast 3 letters.</div>
+                            <div *ngIf="f['lastName'].errors['pattern']">Lastname should have alphabets only.</div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+
+                <div class="form-group mt-2 row">
+                    <!-- role here -->
+                    <div class="col-md-4">
+                        <label for="role">Role</label>
+                        <select formControlName="role" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['role'].errors }">
+                            <option value="">Select a role</option>
+                            <option *ngFor="let r of configs.roles | keyvalue" [ngValue]="r.value">
+                                {{ r.key }}
+                            </option>
+                        </select>
+                        <div *ngIf="submitted && f['role'].errors" class="invalid-feedback">
+                            <div *ngIf="f['role'].errors['required']">Role is required.</div>
+                        </div>
+                    </div>
+                    
+                    <!-- course here -->
+                    <div class="col-md-4">
+                        <label for="course">Course</label>
+                        <select formControlName="course" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['course'].errors }">
+                            <option value="">Select a course</option>
+                            <option *ngFor="let c of configs.courses | keyvalue" [ngValue]="c.value">
+                                {{ c.key }}
+                            </option>
+                        </select>
+                        <div *ngIf="submitted && f['course'].errors" class="invalid-feedback">
+                            <div *ngIf="f['course'].errors['required']">Course is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mt-2 row">
+                    <!-- roll no here -->
+                    <div class="col-md-6">
+                        <label for="rollNo"> Roll No.</label>
+                        <input type="number" formControlName="rollNo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['rollNo'].errors }" />
+                        <div *ngIf="submitted && f['rollNo'].errors" class="invalid-feedback">
+                            <div *ngIf="f['rollNo'].errors['required']">Roll No. is required.</div>
+                            <div *ngIf="f['rollNo'].errors['min']">Roll No. should have 10 digits.</div>
+                            <div *ngIf="f['rollNo'].errors['max']">Roll No. should have 10 digits.</div>
+                        </div>
+                    </div>
+
+                    <!-- branch here -->
+                    <div class="col-md-6">
+                        <label for="branch">Branch</label>
+                        <select formControlName="branch" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['branch'].errors }">
+                            <option value="">Select a branch</option>
+                            <option *ngFor="let b of configs.branches | keyvalue" [ngValue]="b.value">
+                                {{ b.key }}
+                            </option>
+                        </select>
+                        <div *ngIf="submitted && f['branch'].errors" class="invalid-feedback">
+                            <div *ngIf="f['branch'].errors['required']">Branch is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mt-2">
+                    <!-- card id here -->
+                    <label for="cardId"><i class="bi bi-credit-card-2-back"></i> Card ID</label>
+                    <input type="number" formControlName="cardId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['cardId'].errors }" />
+                    <div *ngIf="submitted && f['cardId'].errors" class="invalid-feedback">
+                        <div *ngIf="f['cardId'].errors['required']">Card ID is required.</div>
+                        <div *ngIf="f['cardId'].errors['min']">Card ID should have atleast 3 digits.</div>
+                    </div>
+                </div>
+
+                <div class="form-group mt-2 row">
+                    <!-- email here -->
+                    <div class="col">
+                        <label for="email"> <i class="bi bi-envelope"></i> Email</label>
+                        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
+                        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                            <div *ngIf="f['email'].errors['required']">Email is required.</div>
+                            <div *ngIf="f['email'].errors['email']">Email should have valid format.</div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <label for="mobile"> <i class="bi bi-telephone"></i> Mobile No.</label>
+                        <input type="text" formControlName="mobile" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['mobile'].errors }" />
+                        <div *ngIf="submitted && f['mobile'].errors" class="invalid-feedback">
+                            <div *ngIf="f['mobile'].errors['required']">Mobile No. is required.</div>
+                            <div *ngIf="f['mobile'].errors['pattern']">Mobile No. should have valid pattern i.e. +91 and 10 digits or atleast 10 valid digits only.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mt-2 row">
+                    <div class="col-md-4">
+                        <label for="gender">Gender</label>
+                        <select formControlName="gender" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['gender'].errors }">
+                            <option value="">Select a gender</option>
+                            <option *ngFor="let g of configs.genders | keyvalue" [ngValue]="g.value">
+                                {{ g.key }}
+                            </option>
+                        </select>
+                        <div *ngIf="submitted && f['gender'].errors" class="invalid-feedback">
+                            <div *ngIf="f['gender'].errors['required']">Gender is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <button [disabled]="loading" class="btn btn-primary" type="submit">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        <i class="bi bi-pencil-square"></i>
+                        Edit Student
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</div>

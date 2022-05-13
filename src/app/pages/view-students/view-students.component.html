@@ -1,0 +1,49 @@
+
+<div class="lead text-center border border-dark mt-2 mb-2 p-2 bg-primary text-white">
+    <strong>All Students</strong>
+</div>
+
+<div>
+    <div  class="table-responsive">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col" *ngFor="let fieldName of fieldNames">
+                    {{fieldName | titlecase}}
+                </th>
+                <th scope="col" *ngIf="isAdmin">Edit</th>
+                <th scope="col" *ngIf="isAdmin">Delete</th>
+                <th scope="col" *ngIf="user.role.authority === 'ROLE_FACULTY'">View Attendance</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let student of students; let i = index;">
+                <th scope="row">{{i+1}}</th>
+                <td *ngFor="let fieldName of fieldNames">{{student[fieldName]}}</td>
+
+                <!--edit button-->
+                <td *ngIf="isAdmin">
+                    <button type="button" class="btn btn-dark btn-lg fw-bold rounded-circle" (click)="edit(student)">
+                        <i class="bi bi-pencil-fill"></i>
+                    </button>
+                </td>
+                <!--delete button-->
+                <td *ngIf="isAdmin">
+                    <button type="button" class="btn btn-danger btn-lg fw-bold rounded-circle" (click)="delete(student)">
+                        <i class="bi bi-trash3-fill"></i>
+                    </button>
+                </td>
+
+                <!--view attendance-->
+                <td *ngIf="user.role.authority === 'ROLE_FACULTY'">
+                    <button type="button" class="btn btn-info btn-lg fw-bold rounded-circle" (click)="markAttendance(student)">
+                        <i class="bi bi-calendar-event"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</div>

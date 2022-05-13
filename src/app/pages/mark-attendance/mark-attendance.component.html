@@ -1,0 +1,111 @@
+<div class="lead text-center border border-dark mt-2 mb-2 p-2 bg-primary text-white">
+    <strong>Student Attendance Dashboard</strong>
+</div>
+
+<div class="col-md-6 offset-md-3 mt-5">
+
+    <div class="card">
+        <form [formGroup]="attendanceForm" (ngSubmit)="onSubmit()">
+            <div class="form-group row mt-2">
+                <div class="col">
+                    <label for="facultyId">Faculty ID</label>
+                    <input type="text" formControlName="facultyId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['facultyId'].errors }" readonly />
+                </div>
+
+                <div class="col">
+                    <label for="rollNo">Roll No.</label>
+                    <input type="text" formControlName="rollNo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['rollNo'].errors }" readonly />
+                </div>
+
+                <div class="col">
+                    <label for="cardId">Card ID</label>
+                    <input type="text" formControlName="cardId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['cardId'].errors }" />
+                </div>
+                
+            </div>
+
+            <div class="form-group row mt-2">
+                <div class="col">
+                    <label for="date">Date</label>
+                    <input type="date" formControlName="date" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['date'].errors }" />
+                </div>
+
+                <div class="col">
+                    <label for="month">Month</label>
+                    <input type="text" formControlName="month" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['month'].errors }" readonly />
+                </div>
+
+                <div class="col">
+                    <label for="year">Year</label>
+                    <input type="text" formControlName="year" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['year'].errors }" readonly />
+                </div>
+
+            </div>
+
+            <div *ngIf="configs" class="form-group row mt-2">
+                <div class="col-md-4">
+                    <label for="subject">Subject</label>
+                    <select formControlName="subject" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['subject'].errors }">
+                        <option value="">Select a subject</option>
+                        <option *ngFor="let r of configs.subjects | keyvalue" [ngValue]="r.value">
+                            {{ r.key }}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted && f['subject'].errors" class="invalid-feedback">
+                        <div *ngIf="f['subject'].errors['required']">Subject is required.</div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="status">Status</label>
+                    <select formControlName="status" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['status'].errors }">
+                        <option value="">Select a status</option>
+                        <option *ngFor="let r of configs.attendanceStatus | keyvalue" [ngValue]="r.value">
+                            {{ r.key }}
+                        </option>
+                    </select>
+                    <div *ngIf="submitted && f['status'].errors" class="invalid-feedback">
+                        <div *ngIf="f['status'].errors['required']">Status is required.</div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="d-grid gap-2 mt-4">
+                <button [disabled]="loading" class="btn btn-primary" type="submit">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    <i class="bi bi-calendar4"></i>
+                    Mark Attendance
+                </button>
+            </div>
+
+        </form>
+        
+    </div>
+
+</div>
+
+<div>
+    <div class="lead text-center border border-dark mt-2 mb-2 p-2 bg-secondary text-white">
+        <strong>Student Attendance Record</strong>
+    </div>
+    <div  class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" *ngFor="let fieldName of fieldNames">
+                        {{fieldName | titlecase}}
+                    </th>
+                    
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let attendance of attendances; let i = index;">
+                    <th scope="row">{{i+1}}</th>
+                    <td *ngFor="let fieldName of fieldNames">{{attendance[fieldName]}}</td>
+                </tr>
+            </tbody>    
+        </table>
+    </div>
+</div>
